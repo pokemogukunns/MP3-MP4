@@ -3,37 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ファイルをZIPで保存</title>
+    <title>ファイルをZIPで保存（パスを含む）</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script>
         async function downloadFiles() {
             const fileUrls = document.getElementById('fileUrls').value.split('\n');
+            const zipFileName = document.getElementById('zipFileName').value || 'downloaded_files';
             const zip = new JSZip();
 
-            // 各ファイルを取得してZIPに追加
             for (const url of fileUrls) {
                 try {
                     const response = await fetch(url);
-                    const blob = await response.blob();
-                    const fileName = url.split('/').pop(); // ファイル名をURLから取得
-                    zip.file(fileName, blob);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+                    }
+
+                    // バイナリデータを取得
+                    const blob = await response.arrayBuffer();
+
+                    // URLからファイルのパスを抽出
+                    const urlPath = new URL(url).pathname;
+                    const fileNameWithPath = urlPath.substring(1); // パスの最初の "/" を削除
+
+                    // バイナリ形式でZIPファイルにパスごと追加
+                    zip.file(fileNameWithPath, blob);
                 } catch (error) {
                     console.error(`ファイルの取得に失敗しました: ${url}`, error);
                 }
             }
 
-            // ZIPファイルとして保存
+            // ZIPファイルを生成してユーザー指定の名前でダウンロード
             zip.generateAsync({ type: 'blob' }).then(function (content) {
-                saveAs(content, 'downloaded_files.zip');
+                saveAs(content, zipFileName + '.zip');
             });
         }
     </script>
 </head>
 <body>
-    <h1>ファイルをZIPで保存</h1>
+    <h1>ファイルをZIPで保存（パスを含む）</h1>
     <p>保存したいファイルのリンクを1行ごとに入力してください（mp4, png, html, js, css, pyなど）：</p>
-    <textarea id="fileUrls" rows="10" cols="50" placeholder="https://example.com/file1.mp4&#10;https://example.com/file2.png"></textarea>
+    <textarea id="fileUrls" rows="10" cols="50" placeholder="https://example.com/path/to/file1.mp4&#10;https://example.com/another/path/file2.png"></textarea>
+    <br><br>
+    <p>ZIPファイルの名前を入力してください（拡張子は自動的に付与されます）：</p>
+    <input type="text" id="zipFileName" placeholder="ファイル名を入力">
     <br><br>
     <button onclick="downloadFiles()">ファイルをZIPで保存</button>
 </body>
