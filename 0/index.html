@@ -59,4 +59,12 @@
     <p>保存したいファイルのリンクを1行ごとに入力してください（mp4, png, html, js, css, pyなど）：</p>
     <textarea id="fileUrls" rows="10" cols="50" placeholder="https://example.com/path/to/file1.mp4&#10;https://example.com/another/path/file2.png"></textarea>
     <br><br>
-    <p>ZIPファイルの名前を入力してください（
+    <p>ZIPファイルの名前を入力してください（拡張子は自動的に付与されます）：</p>
+    <input type="text" id="zipFileName" placeholder="ファイル名を入力">
+    <br><br>
+    <button onclick="downloadFiles()">ファイルをZIPで保存</button>
+
+    <h2>ログ:</h2>
+    <div id="log" style="border: 1px solid #000; padding: 10px; height: 200px; overflow-y: scroll; background-color: #f9f9f9;"></div>
+</body>
+</html>
