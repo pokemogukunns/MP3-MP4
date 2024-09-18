@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+ 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>YouTubeMP3もどき</title>
+ 
+  <!-- Manifest -->
+  <meta name="theme-color" content="#f0f0f0">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.webmanifest">
+ 
+  <!-- OGP -->
+  <meta property="og:type" content="article">
+  <meta property="description" content="YouTube・ニコニコ動画・SoundCloud などの動画・音声を MP3 や MP4 などに変換してダウンロードできるサイトです。">
+  <meta property="og:description" content="YouTube・ニコニコ動画・SoundCloud などの動画・音声を MP3 や MP4 などに変換してダウンロードできるサイトです。">
+  <meta property="og:title" content="YouTubeMP3もどき">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:url" content="https://receive.shamimomo.net/YouTubeMP3modoki/">
+  <meta property="og:image" content="https://receive.shamimomo.net/YouTubeMP3modoki/files/icon/logo.png">
+  <!-- /OGP -->
+ 
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:description" content="YouTube・ニコニコ動画・SoundCloud などの動画・音声を MP3 や MP4 などに変換してダウンロードできるサイトです。">
+  <meta name="twitter:title" content="YouTubeMP3もどき">
+  <meta name="twitter:url" content="https://receive.shamimomo.net/YouTubeMP3modoki/">
+  <meta name="twitter:image" content="https://receive.shamimomo.net/YouTubeMP3modoki/files/icon/logo.png">
+  <!-- /Twitter Card -->
+ 
+  <!-- JavaScript -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.29.4/locale/ja.js"></script>
+  <script type="text/javascript" src="files/pwacompat.min.js" async></script>
+  <script type="text/javascript" src="files/js.cookie.min.js"></script>
+  <script type="text/javascript" src="files/snowfall.jquery.min.js"></script>
+  <script type="text/javascript" src="files/toastr.min.js"></script>
+  <script type="text/javascript" src="files/velocity.min.js"></script>
+  <script type="text/javascript" src="files/APlayer.min.js"></script>
+  <script type="text/javascript" src="files/DPlayer.min.js"></script>
+  <script type="text/javascript" src="files/sse.js"></script>
+  <script type="text/javascript" src="files/script.js?ver=5.12.0.7"></script>
+ 
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="files/toastr.min.css">
+  <link rel="stylesheet" type="text/css" href="files/APlayer.min.css">
+  <link rel="stylesheet" type="text/css" href="files/style.css">
+ 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154191901-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+ 
+    gtag('config', 'UA-154191901-1');
+  </script>
+ 
+  <script>
+    if (location.hostname !== 'receive.shamimomo.net') {
+      location.href = 'https://receive.shamimomo.net/YouTubeMP3modoki/';
+    }
+  </script>
+ 
+</head>
+<body><script type="text/javascript" src="https://ad.netowl.jp/js/star-php.js"></script>
+ 
+  <nav id="navigation" class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+    <div class="container">
+      <a class="navbar-brand py-0" href="./">
+        <img id="logo" src="files/logo_summer.png">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+ 
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" data-href="#" style="cursor: pointer;"><i class="fas fa-home"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" data-href="#about" style="cursor: pointer;"><i class="fas fa-info-circle"></i>About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" data-href="#usage" style="cursor: pointer;"><i class="fas fa-question-circle"></i>Usage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" data-href="#note" style="cursor: pointer;"><i class="fas fa-sticky-note"></i>Note</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="https://twitter.com/YTMP3modoki" target="_blank"><i class="fab fa-twitter"></i>Twitter</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="https://ytmp3modoki.fanbox.cc/" target="_blank"><i class="fas fa-ticket-alt"></i>FANBOX</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- <div class="alert alert-danger mb-0" role="alert">
+    <div class="container px-0 px-sm-2-3">
+      <div class="mb-0">
+        <b>最近アニメ、見てますか? 私が心の底からオススメで話題沸騰中のイチオシ作品は <a href="https://www.amazon.co.jp/dp/B0CVF6G4ZW?tag=tsukumijima-22" target="_blank">ガールズバンドクライ (ガルクラ)</a> と <a href="https://www.amazon.co.jp/dp/B0CWD4YBYP?tag=tsukumijima-22" target="_blank">夜のクラゲは泳げない (ヨルクラ)</a> ！</b><br>
+        <b>どちらも制作期間3年以上の気合入ったオリジナルアニメ &「現代社会に抵抗したい女の子たちがくすぶる感情を音楽活動にぶつけて学校外の繋がりで音楽活動していく」近いテーマ性ながら、それぞれ違ったアプローチで描いているのが面白いです。</b>それぞれ川崎 / 渋谷を舞台に描かれるリアリティある丁寧な演出も見どころ。<br>
+        <b>とにかく本当に面白いので（面白さは私が保証します）本当に1話だけでも見てください…！！🙏</b> 上のアマプラリンクから見れます🔼<br>
+        <b>あとガルクラは劇中バンドが<a href="https://open.spotify.com/intl-ja/artist/7JAG8hDvCiDFBJkTdOCJ6F" target="_blank">「トゲナシトゲアリ」</a>としてリアルバンドもやっているんですが、本当に曲が良いのでこちらもぜひ！</b>(以上オタク宣伝コーナー)<br>
+      </div>
+    </div>
+  </div> -->
+  <div class="alert alert-danger mb-0" role="alert">
+    <div class="container px-0 px-sm-2-3">
+      <div class="mb-0">
+        度重なる YouTube からの IP BAN やアクセス数増大を受け、今後も安定して運営を継続するには、老朽化したシステムとサーバー構成の刷新が不可欠な状況です。<br>
+        <b>
+          運営資金確保のため、お試しで <a href="https://ytmp3modoki.fanbox.cc/" target="_blank">PIXIV FANBOX</a> を開設してみました！🎉 <a href="https://x.com/YTMP3modoki/status/1823463252749377717" target="_blank">(詳細)</a> 支援して頂いた方には「優先高速変換用チケット」をお渡しする予定です！<br>
+        </b>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-info mb-0" role="alert">
+    <div class="container px-0 px-sm-2-3">
+      <div class="mb-0">
+        <b>このサイトは多忙な個人が今更サ終もできずに渋々運営しているのですが、アクセス数の割に広告収入は雀の涙で、サイト単体では維持費を賄えていません。</b><br>
+        Amazon でのお買い物を通じて少しでもサポートいただけると、運営存続への大きな力になります！時間がなく長らく現状維持が精一杯で心苦しい限り…<br>
+        <b>ぜひ <a href="https://www.amazon.co.jp/dp/B0C1YY8GSB?tag=tsukumijima-22" target="_blank">こちらの激安ミニ PC の商品リンク</a> から Amazon に入ってお買い物をしていただけると嬉しいです🙏</b> (購入額の数%が<a href="https://affiliate.amazon.co.jp/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank">紹介料</a>として私への収益になります)<br>
+        <b>一応<a href="https://www.amazon.co.jp/hz/wishlist/ls/3AZ4RI13SW2PV" target="_blank">ほしいものリスト</a>もあります。贈っていただけると大変モチベになります！</b> (<a href="https://twitter.com/YTMP3modoki/status/1695557117649076441" target="_blank">以前贈ってくださった方本当にありがとうございました！！🙏🙏</a>)<br>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-warning" role="alert">
+    <div class="container px-0 px-sm-2-3">
+      <b>2024/07/26 現在、TikTok Lite では「新規で」アプリをインストールし、10日間連続でタスク (ログボみたいなもん) をクリアすると、<u>もれなく ¥5000+α を錬金できるキャンペーンが実施されています！！！</u> <a href="https://twitter.com/YTMP3modoki/status/1719924322234691701" target="_blank"> 07/26 時点で 61 人の方が錬金を達成されています。</a></b><br>
+      詳しくは <b><a href="https://mango-garlic-eff.notion.site/TikTok-Lite-5000-5583e62d903a4b218ccba5deada26030" target="_blank">こちら</a></b> の記事に載せてますので、ぜひ試してみてください…！！(招待リンクが「イベントは終了しました」になってる時はだいたい数日待つと復活します)<br>
+      TikTok の気まぐれでいつ減額したり終了するかわからないので、お早めの参加をおすすめします…！！ <a href="https://twitter.com/YTMP3modoki/status/1702940039515418936" target="_blank">頑張れば現金化も可能です。</a><br>
+      (ちなみに iPhone であれば、<a href="https://twitter.com/YTMP3modoki/status/1702944501655048444" target="_blank">TikTok (無印) のアカウントとアプリを iPhone から完全削除することで新規インストール扱いで参加できるらしい</a> です)<br>
+    </div>
+  </div>
+ 
+  <div class="alert alert-warning" role="alert">
+    <div class="container px-0 px-sm-2-3">
+      <b><a href="https://x.com/YTMP3modoki/status/1822872830662377557" target="_blank">音声変換サーバーを運用しているクラウドの IPv4/IPv6 アドレス帯が YouTube から規制された影響</a> で8月中旬から YouTube の音声変換ができなくなっていましたが、暫定的に復旧しました！！🎉🎊 <a href="https://ytmp3modoki.fanbox.cc/posts/8542516" target="_blank">(詳細はこちら)</a></b><br>
+      あいにくちょうど本業が非常に多忙な時期でして、レガシーな旧システムのリプレースに当面着手できそうにありません。申し訳ありません…。<br>
+      <b>その一方、ご支援のおかげで複数の高スペックなサーバーを確保することができました！</b>(ありがとうございます…！) ゼロから作り直した新システムが完成するまでの繋ぎとして、性能の悪い現行の旧システムを増強した新しいサーバー群に展開し、暫定的に運用しています。<br>
+      あくまで暫定運用ですので不安定な面もあるかと思いますが、<b>サーバー増強と最適化により、従来よりも混雑が改善されているはずです！</b><br>
+      <b><a href="https://ytmp3modoki.fanbox.cc/" target="_blank">PIXIV FANBOX</a> にて支援していただければ、さらなるフルリニューアルを実現できます！</b>よろしければぜひ🙏
+    </div>
+  </div>
+ 
+  <!-- <div class="alert alert-warning" role="alert">
+    <div class="container px-0 px-sm-2-3">
+      現在メンテナンス中です。完了まで今しばらくお待ちください。<br>
+    </div>
+  </div> -->
+ 
+  <div class="container px-0 px-sm-2-3 mt-4">
+    <div class="card">
+      <form id="form" class="card-body px-sm-5">
+ 
+        <p class="mt-3 mb-1 text-muted"><b>動画の URL :</b></p>
+        <div class="input-group mb-3">
+          <input type="url" name="url" class="form-control" placeholder="ここに動画の URL を入力してください" autocomplete="off" required>
+        </div>
+ 
+        <p class="mb-1 text-muted"><b>ファイル名 :</b></p>
+        <div class="input-group mb-3">
+          <input type="text" name="title" class="form-control" placeholder="ここにファイル名を入力してください" autocomplete="off">
+        </div>
+ 
+        <p class="mb-1 text-muted"><b>フォーマット :</b></p>
+        <div class="input-group mb-3">
+          <select class="custom-select" name="format">
+            <option value="m4a">音声 (M4A形式: MP3形式よりも音質に優れており非常に高速、多くのプレイヤーで再生できる)</option>
+            <option value="mp3">音声 (MP3形式: 元動画より音質が劣化する割に変換負荷が高くて遅いので、なるべくM4A形式を推奨)</option>
+            <option value="opus">音声 (Opus形式)</option>
+            <option value="wav">音声 (WAV形式)</option>
+            <option value="mp4">動画 (MP4形式・元画質)</option>
+            <option value="mp4(1080p)">動画 (MP4形式・1080p)</option>
+            <option value="mp4(720p)">動画 (MP4形式・720p)</option>
+            <option value="mp4(540p)">動画 (MP4形式・540p)</option>
+            <option value="mp4(480p)">動画 (MP4形式・480p)</option>
+            <option value="mp4(360p)">動画 (MP4形式・360p)</option>
+            <option value="webm">動画 (WebM形式・4K対応)</option>
+            <option value="etc">動画 (その他の形式)</option>
+          </select>
+        </div>
+ 
+        <div id="tips" class="alert alert-info" role="alert">
+          MP4 から音声のみを取り出したフォーマットで、MP3 同様に多くのプレイヤーで再生できます。<u>変換速度が MP3 よりもかなり早いです。</u>
+        </div>
+ 
+        <h3 class="msmall mb-3"><i class="fas fa-cog"></i>オプション</h3>
+ 
+        <div class="custom-control custom-checkbox msmall mb-2">
+          <input type="hidden" name="usearia2" value="false">
+          <input type="checkbox" class="custom-control-input" id="checkbox_usearia2" name="usearia2" value="true">
+          <label class="custom-control-label" for="checkbox_usearia2">
+            Aria2 ダウンローダーを有効にする
+            <div class="feedback text-muted msmall">
+              <u>ニコニコ動画・ビリビリ動画はチェック推奨（ダウンロードが早くなります）</u> YouTube では無効化されます
+            </div>
+          </label>
+        </div>
+ 
+        <div class="custom-control custom-checkbox msmall mb-2">
+          <input type="hidden" name="embedthumb" value="false">
+          <input type="checkbox" class="custom-control-input" id="checkbox_embedthumb" name="embedthumb" value="true">
+          <label class="custom-control-label" for="checkbox_embedthumb">
+            音声ファイルに動画のサムネイルを埋め込む
+            <div class="feedback text-muted msmall">
+              変換先の形式が MP3形式・M4A形式・Opus形式 の場合のみ適用されます それ以外の形式を指定した状態でチェックしても何も起こりません
+            </div>
+          </label>
+        </div>
+ 
+        <div class="custom-control custom-checkbox msmall mb-2">
+          <input type="hidden" name="useav1" value="false">
+          <input type="checkbox" class="custom-control-input" id="checkbox_useav1" name="useav1" value="true">
+          <label class="custom-control-label" for="checkbox_useav1">
+            利用可能であれば AV1 / VP9 動画コーデックでダウンロードする（実験的）
+            <div class="feedback text-muted msmall">
+              AV1 / VP9 は新しい動画コーデックで、特に長い動画などでは H.264 (AVC) よりもファイルサイズを抑えられ高画質ですが<br>
+              再生できるプレイヤーやソフトが限られます とにかく一番高画質でダウンロードしたい方におすすめです<br>
+              YouTube の場合、MP4・WebM ともに Video: AV1 or VP9 / Audio: Opus の構成の動画ファイルが作成されます<br>
+            </div>
+          </label>
+        </div>
+ 
+        <div class="custom-control custom-checkbox msmall mb-2">
+          <input type="hidden" name="playsound" value="false">
+          <input type="checkbox" class="custom-control-input" id="checkbox_playsound" name="playsound" value="true">
+          <label class="custom-control-label" for="checkbox_playsound">
+            変換完了後にサウンドを鳴らしてお知らせする
+            <div class="feedback text-muted msmall">
+              変換に時間のかかる長い動画や［変換する］を押してそのまま他のページを見てるような用途の時におすすめです
+            </div>
+          </label>
+        </div>
+ 
+        <div class="custom-control custom-checkbox msmall mb-2">
+          <input type="hidden" name="information" value="false">
+          <input type="checkbox" class="custom-control-input" id="checkbox_information" name="information" value="true">
+          <label class="custom-control-label" for="checkbox_information">
+            変換時の詳細情報を表示する
+            <div class="feedback text-muted msmall">
+              ダウンロード・変換時のログなどを表示するモードです 変換に失敗した時に確認してみてください
+            </div>
+          </label>
+        </div>
+ 
+        <div class="custom-control custom-checkbox msmall mb-2">
+          <input type="hidden" name="range" value="false">
+          <input type="checkbox" class="custom-control-input" id="checkbox_range" name="range" value="true">
+          <label class="custom-control-label mb-3" for="checkbox_range">
+            変換する範囲を指定する
+            <div class="feedback text-muted msmall">
+              開始時間・終了時間どちらかを省くと、動画の最初・最後からそれぞれ切り取ります<br>
+              動画を再エンコードを行わずに切り取るため、指定された秒数よりも±数秒ずれることがあります<br>
+            </div>
+          </label>
+          <div class="form-range hide pb-2">
+            <div class="input-group">
+              <div class="input-group-prepend"><div class="input-group-text">開始時間</div></div>
+              <input type="text" name="range_fromtime" class="form-control" placeholder="00:01:23" pattern="^([0-9]{2,}):([0-9]{2}):([0-9]{2})$" autocomplete="off">
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend"><div class="input-group-text">終了時間</div></div>
+              <input type="text" name="range_totime" class="form-control" placeholder="00:04:56" pattern="^([0-9]{2,}):([0-9]{2}):([0-9]{2})$" autocomplete="off">
+            </div>
+          </div>
+        </div>
+ 
+        <div class="d-flex justify-content-center mb-1">
+          <button id="submit" type="submit" class="btn btn-ytmp3">
+            <i class="fas fa-video"></i>変換する
+          </button>
+        </div>
+ 
+      </form>
+    </div>
+  </div>
+ 
+  <div id="convert-box" class="container px-0 px-sm-2-3 mt-4">
+  </div>
+ 
+  <div id="about" class="container px-0 px-sm-2-3 mt-4 mb-4">
+    <div class="card">
+      <div class="card-header text-dark font-weight-bold"><i class="fas fa-info-circle"></i>About</div>
+      <div class="card-body msmall px-sm-5">
+        <p>
+          昔あった YouTubeMP3 的な動画ダウンロードサイトです。2018/9/11 から一時閉鎖・譲渡を経て、個人がインターネットの片隅で細々と運営しています。<br>
+          名前の由来も「『YouTubeMP3』もどき」という意味だったのですが、今では元ネタの YouTubeMP3 を知っている人も少なくなりました。早いものです。<br>
+        </p>
+        <p>
+          <a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp</a> という、事実上開発が停止している <a href="https://github.com/ytdl-org/youtube-dl" target="_blank">youtube-dl</a> をベースに多くの改善が行われている CLI 動画ダウンロードツールの Web フロントエンドです。<br>
+          YouTube などの動画サイトの動画を、M4A・MP3・Opus などの音声形式に変換してダウンロードできます。動画をそのまま MP4 や WebM としてダウンロードすることもできます。<br>
+          YouTube の他にもニコニコ動画、SoundCloud など、yt-dlp (youtube-dl) が対応している 2000 以上の動画サイトのダウンロードに対応しています。<br>
+        </p>
+        <p>
+          個人がほぼ惰性で運営しているサイトなので、変なポップアップ広告がドカドカ出てくることはありません。<br>
+          申し訳程度にサーバーの維持費を賄うため少しだけ広告を掲載していますが、不快・不適切な広告が表示されないよう対策しています。<br>
+        </p>
+        <p>
+          また、PWA (Progressive Web Apps) という、Web サービスをアプリとしてインストールできる技術に対応しています。<br>
+          YouTubeMP3もどきを「<a href="https://support.google.com/chrome/answer/9658361" target="_blank">ホーム画面に追加</a>」することで、デスクトップやアプリ一覧からネイティブアプリのように起動することもできます。<br>
+        </p>
+        <p class="mb-0">
+          <a href="https://twitter.com/YTMP3modoki" target="_blank">Twitter@YTMP3modoki</a> ではYouTubeMP3もどきに関する様々な情報を発信しています。<br>
+          サービスの停止 / 復旧などについてのアナウンスもこちらでツイートしています。ぜひフォローしていただけるとありがたいです。<br>
+        </p>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="usage" class="container px-0 px-sm-2-3 mt-4 mb-4">
+    <div class="card">
+      <div class="card-header text-dark font-weight-bold"><i class="fas fa-question-circle"></i>Usage</div>
+      <div class="card-body">
+        <ol class="mb-0 msmall pl-3 px-md-5">
+          <li><b>変換・ダウンロードしたい動画の URL をコピペして入力してください。</b></li>
+          <ul>
+            <li>YouTube の他にもニコニコ動画など数多くの動画サイトのダウンロードに対応しています。</li>
+            <li>MP3・MP4・WAV といった音声形式以外にも MP4・WebM といった動画でのダウンロードも可能です。</li>
+          </ul>
+          <li><b>ダウンロードするときのファイル名を入力してください（任意）。</b></li>
+          <ul>
+            <li><b>ファイル名を入力しない場合、自動で動画のタイトルがファイル名になります。</b></li>
+            <li>日本語の動画タイトルの取得にも対応しています。</li>
+          </ul>
+          <li>フォーマットは現時点で 音声 (M4A形式)・音声 (MP3形式)・音声 (Opus形式)・音声 (WAV形式)・動画 (MP4形式・元画質)・動画 (MP4形式・1080p)・動画 (MP4形式・720p)・動画 (MP4形式・540p)・動画 (MP4形式・480p)・動画 (MP4形式・360p)・動画 (WebM形式・4K対応)・動画 (その他の形式) を選択できます。</li>
+          <ul>
+            <li>ダウンロードしたいフォーマットを選択してください。</li>
+            <li><b>［動画(MP4形式・元画質)］に設定すると、変換元の動画で選択できる最高画質でダウンロードできます。</b>(元動画の最大画質が 1080p・60fps ならその画質でダウンロードされます。)</li>
+            <li>基本的にはダウンロードしたいのが動画なら MP4 、音声なら M4A か MP3 を選んでおけば大丈夫だと思います。</li>
+            <li><b>M4A は MP3 ほどメジャーではありませんが、<u>MP3 とほぼ同じように扱え、さらに変換が早いのでおすすめです。</u></b></li>
+            <ul>
+              <li>サーバー負荷の増大にともないプロセス優先度や CPU 使用率を制限するようにしたため、<b>以前よりも MP3 への変換が遅くなりました。</b></li>
+              <li>再エンコードを行わないため変換が早くなっています。<b>サーバー負荷も大幅に低減できるため、M4A の方が運営としても助かります。</b></li>
+            </ul>
+            <li><b>Opus は MP3 や M4A よりも高音質な音声フォーマットで、YouTube では Opus を選択することで最も良い音質で変換できます。</b></li>
+            <ul>
+              <li>ただし、YouTube の中でも何年も前の古い動画などでは用意されていない事があり、その場合は M4A などから再エンコードされるため、音質はほとんど変わりません。</li>
+              <li>また、Opus フォーマットは YouTube 以外で対応しているサイトはあまりありません。そのサイトが Opus フォーマットを用意していなかった場合も同様に再エンコードされるため、YouTube 以外ではあまり意味がないと思います。</li>
+              <li>再生できるプレイヤーが限られるため汎用性には欠けますが、できるだけ高音質で聞きたい方におすすめです。</li>
+            </ul>
+            <li><b>YouTube の 4K 以上の画質設定がある動画は、［動画 (WebM形式・4K対応)］を選択すると 4K 以上の画質でダウンロードできます。</b></li>
+            <li>そのほか、お好みでオプションも設定してください。</li>
+          </ul>
+          <li>［変換する］ボタンをクリック or タップしてしばらくすると［ファイルをダウンロード］ボタンとプレビューが表示されます。</li>
+          <ul>
+            <li>［アルバムアートワーク］は、iTunes などの音楽プレイヤーのジャケット画像用に、動画のサムネイルを正方形にトリミングしたものです。</li>
+            <ul>
+              <li>アコーディオンメニューを開き、［ダウンロード］をクリック or タップでダウンロードできます。</li>
+            </ul>
+            <li>［ファイルをダウンロード］ボタンをクリック or タップすると、ファイルがダウンロードされます。</li>
+          </ul>
+        </ol>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="note" class="container px-0 px-sm-2-3 mt-4 mb-4">
+    <div class="card">
+      <div class="card-header text-dark font-weight-bold"><i class="fas fa-sticky-note"></i>Note</div>
+      <div class="card-body">
+        <ul class="mb-0 msmall pl-3 px-md-5">
+          <li>長い動画は処理に時間がかかります。気長にお待ちください…</li>
+          <li>4K や1時間を超える長さの動画はファイルサイズが大きすぎて変換できないことがあります。</li>
+          <ul>
+            <li>ファイルサイズが 10GB を超える動画はサーバーのストレージが足りず、変換に失敗します。</li>
+            <li>特に GB 級になるとストレージが圧迫されるため、できれば 4K 動画の変換は避けてほしいというのが正直なところです…</li>
+          </ul>
+          <li><b>YouTube Music の動画は IP アドレスベースでの地域制限規制が原因で、YouTube 側に誤判定されダウンロードに失敗することがあります。</b></li>
+          <ul>
+            <li>YouTube のみ IP 規制が激しいため、動画ダウンロード時に複数の IPv6 アドレスをランダムで選択する実装となっています。</li>
+            <li><b>IP アドレス帯や運用サーバーの関係上、IP アドレスベースの YouTube 側の規制の回避は困難です。</b>あらかじめご了承ください。</li>
+            <li>技術的な詳細は <a href="https://twitter.com/YTMP3modoki/status/1695535663368856063" target="_blank">こちらのツイート</a> にも記載しています。</li>
+          </ul>
+          <li><b>変換したファイルは一時的にサーバーに保存されますが、定期的に自動で削除されます。</b></li>
+          <ul>
+            <li>ダウンロードされないままだとせっかく変換したのに削除されてしまうので、変換が完了次第お早めのダウンロードをおすすめします。</li>
+          </ul>
+          <li>ファイル名に半角のスラッシュ (/)・クエスチョンマーク (?) などの特殊文字が含まれている場合、ダウンロード時にそれぞれ全角文字に変換されます（ファイルシステムで扱えないため）。</li>
+          <li>変換時に指定された画質がない場合、自動的に指定された画質に一番近い画質でダウンロードされます。</li>
+          <li><b>たまに変換に失敗することがありますが、そのうち半分くらいはもう一度変換するとなぜかうまく行ったりします。</b></li>
+          <ul>
+            <li>2回・3回やってもダメな場合は、その動画サイトに仕様変更があった可能性が高いです。</li>
+            <li>常に自動的に最新の yt-dlp に更新するよう努めていますが、yt-dlp 側で仕様変更への対応が行われないと対応は難しいです。</li>
+            <li>また、サーバーの負荷が高まった場合も同様に変換に失敗することがあります。</li>
+          </ul>
+          <li><b>ニコニコ動画の動画をエコノミー時間帯に変換する場合、ダウンロードされる動画もエコノミー画質になります。</b></li>
+          <ul>
+            <li>ニコニコ動画の動画を変換するときはエコノミー時間帯以外の時間に変換することをおすすめします。</li>
+          </ul>
+          <li><b>ニコニコ動画のサーバーの仕様で、15分以上の長い動画はダウンロードが途中で中断し、変換に失敗することがあります。</b></li>
+          <ul>
+            <li>ダウンロードが途中で失敗した場合、自動的に3回までダウンロード途中から再試行（レジューム）します。</li>
+            <li>また、［Aria2 ダウンローダーを使用］にチェックが入っているかどうか、確認してみてください。</li>
+          </ul>
+          <li><b>WebM 形式でダウンロードできるサイトは今のところ YouTube のみです。</b></li>
+          <ul>
+            <li>WebM 形式で変換する場合、動画によっては MP4 形式よりも低画質な動画がダウンロードされることがあります。</li>
+          </ul>
+          <li>WAV 形式で変換する場合は、動画のサムネイルを埋め込めません。</li>
+          <ul>
+            <li>WAV 形式がカバーアートの埋め込みに対応していないためです。</li>
+            <li>このほか、Windows Media Player などの一部のプレイヤーでは、他の形式を含め埋め込んだサムネイルが表示されないことがあります。</li>
+          </ul>
+          <li><b>YouTube などの動画を埋め込んでいるサイト（まとめサイトなど）の URL を入力した場合、基本的にダウンロードできません。</b></li>
+          <ul>
+            <li>埋め込まれている元の動画の URL でもう一度試してみてください。</li>
+            <li><b>一見動画サイトのように見えるが実は他の動画サイトの動画を埋め込んでいるだけ、というサイトも割とあります。</b></li>
+          </ul>
+          <li><b>負荷対策のため、変換サーバーは毎時3分・23・43分に再起動されます。再起動タイミングを跨いだ変換セッションは破棄されますので、あらかじめご了承ください。</b></li>
+          <li><b>近年アクセス数の増大により、変換サーバーが頻繁に不安定になっています。</b></li>
+          <ul>
+            <li>ベストエフォート型のため、サーバーの負荷が高まると変換に失敗することがあります。サービスの安定稼働は保証されていません。</li>
+            <li>ある程度対策は行いましたが、抜本的な対策を行うにはサイト全体を作り直すほかない状況です。ただ運営が多忙なため、このサイトのフルリニューアルは当面の間延期されています。</li>
+          </ul>
+          <li><b>動作確認は PC / Android は最新の Chrome 、iPhone / iPad は最新の Safari (iOS 16 以上) で行っています。</b></li>
+          <ul>
+            <li>上記環境以外での動作は保証しません (特に OS が古い iPhone / iPad Safari) 。</li>
+            <li>現状 PC Chrome 以外での動作確認はあまりできていないため、もし不具合があるようでしたらご連絡いただけると助かります。</li>
+          </ul>
+          <li><b>不具合報告や要望は <a href="https://twitter.com/YTMP3modoki" target="_blank">Twitter</a> のリプライや DM にて受け付けています。</b>確認頻度が低いため、メールよりも返信が遅くなる可能性があります。</li>
+          <ul>
+            <li>メールでのお問い合わせは <code>ytmp3modoki⭐️gmail.com</code> までお願いします (<code>⭐️</code> を <code>@</code> に変えてください) 。</li>
+          </ul>
+          <li>
+            このサイトのバックエンドには <a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp</a>（2000 以上の動画サイトのダウンロードに対応）と
+            <a href="https://www.ffmpeg.org/" target="_blank">ffmpeg</a>（メディア変換ソフト）を使用しています。
+          </li>
+          <li>このサイトは、Amazon.co.jp を宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazon アソシエイト・プログラムの参加者です。</li>
+          <li>release ver.5.12.0</li>
+          <ul>
+            <li>バックエンドの再実装が完了するまでの繋ぎとして、サーバー台数を増強</li>
+          </ul>
+          <li>release ver.5.11.0</li>
+          <ul>
+            <li>バックエンドのフォーマット選択コマンドを最新の yt-dlp に合わせて更新</li>
+            <li>YouTube で MP4 形式でダウンロードした際に映像コーデックが H.264 ではなく AV1 になる問題を修正</li>
+          </ul>
+          <li>release ver.5.10.0</li>
+          <ul>
+            <li>リファクタリングと API の実装仕様を変更し、動作安定性と確実性を大幅に向上した</li>
+            <li>サーバー構成を2台体制に変更</li>
+            <li>様々な不具合の修正</li>
+          </ul>
+          <li>release ver.5.9.0</li>
+          <ul>
+            <li>サーバーをスペックの高い新サーバーに移転し、Docker 構成に移行</li>
+            <li>様々な不具合修正と動作安定性の向上</li>
+          </ul>
+          <li>release ver.5.8.0</li>
+          <ul>
+            <li>youtube-dl の更新の停滞に伴い、バックエンドを yt-dlp に置換</li>
+          </ul>
+          <li>release ver.5.7.0</li>
+          <ul>
+            <li>タイトル・サムネイルの取得ロジックをより負荷のかからない方法で実装し直した</li>
+            <li>累積的な不具合をまとめて修正</li>
+          </ul>
+          <li>release ver.5.6.0</li>
+          <ul>
+            <li>同時に変換できるセッションを 4 までに制限した</li>
+            <li>新たに Opus 形式への変換に対応</li>
+            <li>変換パラメータの調整</li>
+            <li>M4A 形式で変換するとダウンロード時に拡張子が MP3 になってしまう不具合を修正</li>
+          </ul>
+          <li>release ver.5.5.0</li>
+          <ul>
+            <li>「利用可能であれば AV1 動画コーデックを有効にする」オプションを追加した</li>
+          </ul>
+          <li>release ver.5.4.0</li>
+          <ul>
+            <li>サーバー負荷の増大にともない、変換ごとのプロセス優先度を下げ、CPU 使用率を制限するようにした</li>
+            <li>接続がリセットされた場合などにエラーメッセージを表示するようにした</li>
+          </ul>
+          <li>release ver.5.3.0</li>
+          <ul>
+            <li>変換（ダウンロード）する範囲を 00:01:23 のような形式で指定できるようにした</li>
+            <li>上記に伴うスタイル・表示の一部変更</li>
+            <li>毎回サーバーのディスク容量が一杯になったと判断されファイルが削除されてしまい、変換に失敗することがあったのを修正</li>
+          </ul>
+          <li>release ver.5.2.0</li>
+          <ul>
+            <li>SoundCloud の一部の track でサムネイルやアートワークの取得に失敗する問題を修正</li>
+            <li>サーバーのディスク容量が一杯になった際に自動でダウンロードされたファイルを削除するようにした</li>
+          </ul>
+          <li>release ver.5.1.0</li>
+          <ul>
+            <li>YouTube の動画が規制によりダウンロードできない問題を修正</li>
+            <li>フォーマットとオプションを変換時に予め保存し、次回サイトに訪れた際に以前の設定内容を復元できるようにした</li>
+          </ul>
+          <li>release ver.5.0.0</li>
+          <ul>
+            <li>譲り受けたコードを参照しつつソースコードを一から書き直す形で公開</li>
+            <li>UI の刷新 (Bootstrap4)</li>
+            <li>進捗表示のロジックを変更・詳細に進捗状況が把握できるようにした</li>
+            <li>ダウンロード中に 403 Forbidden になった場合に 3 回まで自動でレジュームするようにした</li>
+            <li>その他コードの大規模な整頓・レジュームの有効化・機能の整理など</li>
+          </ul>
+          <li>今日の変換回数: <span id="today-count">0</span>回</li>
+          <li>総変換回数: <span id="total-count">0</span>回</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <footer class="footer bg-dark pt-3 pb-3">
+    <div class="container d-flex flex-column align-items-center align-items-sm-end">
+      <div class="d-inline text-white text-center text-sm-right mb-2">
+        yt-dlp (youtube-dl) ver.<span id="youtube-dl-version">loading...</span><br>
+        ver.5.12.0
+      </div>
+      <div class="d-inline text-white text-center text-sm-right">
+        <span class="mr-1">© 2018 - 2024</span>
+        <span class="mr-1">YouTubeMP3もどき</span>
+        <br class="d-inline d-sm-none">
+        <img id="counter" src="https://shamimomo.net/dream/dream.cgi?id=YouTubeMP3modoki&gif=1" loading="lazy" alt="YouTubeMP3もどき アクセスカウンター">
+      </div>
+    </div>
+  </footer>
+ 
+</body>
+</html>
+ 
