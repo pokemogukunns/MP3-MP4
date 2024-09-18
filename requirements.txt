@@ -1,2 +1,6 @@
 pytube
 moviepy
+jinja2
+requests
+fastapi
+uvicorn
