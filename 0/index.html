@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ファイルをZIPで保存</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        async function downloadFiles() {
+            const fileUrls = document.getElementById('fileUrls').value.split('\n');
+            const zip = new JSZip();
+
+            // 各ファイルを取得してZIPに追加
+            for (const url of fileUrls) {
+                try {
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    const fileName = url.split('/').pop(); // ファイル名をURLから取得
+                    zip.file(fileName, blob);
+                } catch (error) {
+                    console.error(`ファイルの取得に失敗しました: ${url}`, error);
+                }
+            }
+
+            // ZIPファイルとして保存
+            zip.generateAsync({ type: 'blob' }).then(function (content) {
+                saveAs(content, 'downloaded_files.zip');
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>ファイルをZIPで保存</h1>
+    <p>保存したいファイルのリンクを1行ごとに入力してください（mp4, png, html, js, css, pyなど）：</p>
+    <textarea id="fileUrls" rows="10" cols="50" placeholder="https://example.com/file1.mp4&#10;https://example.com/file2.png"></textarea>
+    <br><br>
+    <button onclick="downloadFiles()">ファイルをZIPで保存</button>
+</body>
+</html>
