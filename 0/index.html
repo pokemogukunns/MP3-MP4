@@ -8,35 +8,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script>
         async function downloadFiles() {
-            const fileUrls = document.getElementById('fileUrls').value.split('\n');
+            const fileUrls = document.getElementById('fileUrls').value.split('\n').filter(Boolean);
             const zipFileName = document.getElementById('zipFileName').value || 'downloaded_files';
             const zip = new JSZip();
+            const logElement = document.getElementById('log');
+            logElement.innerHTML = ''; // ログをリセット
 
             for (const url of fileUrls) {
                 try {
+                    logElement.innerHTML += `<p>Downloading: ${url}</p>`;
                     const response = await fetch(url);
                     if (!response.ok) {
                         throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
                     }
 
-                    // バイナリデータを取得
-                    const blob = await response.arrayBuffer();
+                    // ファイルをBlob形式で取得
+                    const blob = await response.blob();
 
-                    // URLからファイルのパスを抽出
+                    // URLからファイルのパスを取得
                     const urlPath = new URL(url).pathname;
                     const fileNameWithPath = urlPath.substring(1); // パスの最初の "/" を削除
 
-                    // バイナリ形式でZIPファイルにパスごと追加
+                    // Blob形式のファイルをZIPに追加
                     zip.file(fileNameWithPath, blob);
+                    logElement.innerHTML += `<p>Added to ZIP: ${fileNameWithPath}</p>`;
                 } catch (error) {
+                    logElement.innerHTML += `<p style="color:red;">Error downloading ${url}: ${error.message}</p>`;
                     console.error(`ファイルの取得に失敗しました: ${url}`, error);
                 }
             }
 
-            // ZIPファイルを生成してユーザー指定の名前でダウンロード
-            zip.generateAsync({ type: 'blob' }).then(function (content) {
-                saveAs(content, zipFileName + '.zip');
-            });
+            if (fileUrls.length > 0) {
+                logElement.innerHTML += `<p>Generating ZIP file...</p>`;
+                // ZIPファイルを生成してダウンロード
+                zip.generateAsync({ type: 'blob' }).then(function (content) {
+                    saveAs(content, zipFileName + '.zip');
+                    logElement.innerHTML += `<p style="color:green;">ZIP file generated and downloaded as ${zipFileName}.zip</p>`;
+                }).catch(function (error) {
+                    logElement.innerHTML += `<p style="color:red;">ZIP file generation failed: ${error.message}</p>`;
+                    console.error('ZIPファイルの生成に失敗しました:', error);
+                });
+            } else {
+                logElement.innerHTML += `<p style="color:red;">No valid URLs provided.</p>`;
+            }
         }
     </script>
 </head>
@@ -45,9 +59,4 @@
     <p>保存したいファイルのリンクを1行ごとに入力してください（mp4, png, html, js, css, pyなど）：</p>
     <textarea id="fileUrls" rows="10" cols="50" placeholder="https://example.com/path/to/file1.mp4&#10;https://example.com/another/path/file2.png"></textarea>
     <br><br>
-    <p>ZIPファイルの名前を入力してください（拡張子は自動的に付与されます）：</p>
-    <input type="text" id="zipFileName" placeholder="ファイル名を入力">
-    <br><br>
-    <button onclick="downloadFiles()">ファイルをZIPで保存</button>
-</body>
-</html>
+    <p>ZIPファイルの名前を入力してください（
