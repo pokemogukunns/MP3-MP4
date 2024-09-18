@@ -32,7 +32,7 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(pageText, 'text/html');
 
-                // CSS、JavaScript、画像リソースを取得する関数
+                // リソースURLを抽出してZIPに追加する関数
                 async function fetchAndAddResource(url, path) {
                     try {
                         const res = await fetch(url);
@@ -51,7 +51,7 @@
                 const cssLinks = doc.querySelectorAll('link[rel="stylesheet"]');
                 cssLinks.forEach(link => {
                     const cssUrl = new URL(link.href, pageUrl).href;
-                    const cssPath = new URL(link.href).pathname.substring(1); // パスの最初の "/" を削除
+                    const cssPath = `css/${new URL(link.href).pathname.substring(1)}`; // フォルダ内のパス
                     fetchAndAddResource(cssUrl, cssPath);
                 });
 
@@ -59,7 +59,7 @@
                 const jsScripts = doc.querySelectorAll('script[src]');
                 jsScripts.forEach(script => {
                     const jsUrl = new URL(script.src, pageUrl).href;
-                    const jsPath = new URL(script.src).pathname.substring(1); // パスの最初の "/" を削除
+                    const jsPath = `js/${new URL(script.src).pathname.substring(1)}`; // フォルダ内のパス
                     fetchAndAddResource(jsUrl, jsPath);
                 });
 
@@ -67,8 +67,26 @@
                 const imgElements = doc.querySelectorAll('img[src]');
                 imgElements.forEach(img => {
                     const imgUrl = new URL(img.src, pageUrl).href;
-                    const imgPath = new URL(img.src).pathname.substring(1); // パスの最初の "/" を削除
+                    const imgPath = `images/${new URL(img.src).pathname.substring(1)}`; // フォルダ内のパス
                     fetchAndAddResource(imgUrl, imgPath);
+                });
+
+                // MP4ファイルの取得
+                const videoElements = doc.querySelectorAll('video source[src]');
+                videoElements.forEach(video => {
+                    const videoUrl = new URL(video.src, pageUrl).href;
+                    const videoPath = `videos/${new URL(video.src).pathname.substring(1)}`; // フォルダ内のパス
+                    fetchAndAddResource(videoUrl, videoPath);
+                });
+
+                // その他の動画ファイルの取得
+                const videoElementsWithoutSource = doc.querySelectorAll('video');
+                videoElementsWithoutSource.forEach(video => {
+                    const videoUrl = video.src;
+                    if (videoUrl) {
+                        const videoPath = `videos/${new URL(videoUrl).pathname.substring(1)}`; // フォルダ内のパス
+                        fetchAndAddResource(videoUrl, videoPath);
+                    }
                 });
 
                 // ZIPファイルを生成してダウンロード
